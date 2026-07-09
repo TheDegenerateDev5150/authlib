@@ -1,6 +1,6 @@
-import httpx
-from httpx import USE_CLIENT_DEFAULT
-from httpx import Response
+import httpx2
+from httpx2 import USE_CLIENT_DEFAULT
+from httpx2 import Response
 
 from authlib.oauth2.rfc7521 import AssertionClient as _AssertionClient
 from authlib.oauth2.rfc7523 import JWTBearerGrant
@@ -12,7 +12,7 @@ from .utils import extract_client_kwargs
 __all__ = ["AsyncAssertionClient"]
 
 
-class AsyncAssertionClient(_AssertionClient, httpx.AsyncClient):
+class AsyncAssertionClient(_AssertionClient, httpx2.AsyncClient):
     token_auth_class = OAuth2Auth
     oauth_error_class = OAuthError
     JWT_BEARER_GRANT_TYPE = JWTBearerGrant.GRANT_TYPE
@@ -34,7 +34,7 @@ class AsyncAssertionClient(_AssertionClient, httpx.AsyncClient):
         **kwargs,
     ):
         client_kwargs = extract_client_kwargs(kwargs)
-        httpx.AsyncClient.__init__(self, **client_kwargs)
+        httpx2.AsyncClient.__init__(self, **client_kwargs)
 
         _AssertionClient.__init__(
             self,
@@ -69,7 +69,7 @@ class AsyncAssertionClient(_AssertionClient, httpx.AsyncClient):
         return self.parse_response_token(resp)
 
 
-class AssertionClient(_AssertionClient, httpx.Client):
+class AssertionClient(_AssertionClient, httpx2.Client):
     token_auth_class = OAuth2Auth
     oauth_error_class = OAuthError
     JWT_BEARER_GRANT_TYPE = JWTBearerGrant.GRANT_TYPE
@@ -94,9 +94,9 @@ class AssertionClient(_AssertionClient, httpx.Client):
         # app keyword was dropped!
         app_value = client_kwargs.pop("app", None)
         if app_value is not None:
-            client_kwargs["transport"] = httpx.WSGITransport(app=app_value)
+            client_kwargs["transport"] = httpx2.WSGITransport(app=app_value)
 
-        httpx.Client.__init__(self, **client_kwargs)
+        httpx2.Client.__init__(self, **client_kwargs)
 
         _AssertionClient.__init__(
             self,

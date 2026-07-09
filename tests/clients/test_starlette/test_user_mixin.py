@@ -1,7 +1,7 @@
 import time
 
 import pytest
-from httpx import ASGITransport
+from httpx2 import ASGITransport
 from joserfc import jwk
 from joserfc import jwt
 from joserfc.errors import InvalidClaimError

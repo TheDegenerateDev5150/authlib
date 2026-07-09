@@ -61,7 +61,7 @@ clients = [
     "cachelib",
     "django",
     "flask",
-    "httpx",
+    "httpx2",
     "requests",
     "starlette[full]",
 ]

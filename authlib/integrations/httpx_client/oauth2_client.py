@@ -1,12 +1,12 @@
 import typing
 from contextlib import asynccontextmanager
 
-import httpx
-from anyio import Lock  # Import after httpx so import errors refer to httpx
-from httpx import USE_CLIENT_DEFAULT
-from httpx import Auth
-from httpx import Request
-from httpx import Response
+import httpx2
+from anyio import Lock  # Import after httpx2 so import errors refer to httpx2
+from httpx2 import USE_CLIENT_DEFAULT
+from httpx2 import Auth
+from httpx2 import Request
+from httpx2 import Response
 
 from authlib.common.urls import url_decode
 from authlib.oauth2.auth import ClientAuth
@@ -60,7 +60,7 @@ class OAuth2ClientAuth(Auth, ClientAuth):
         )
 
 
-class AsyncOAuth2Client(_OAuth2Client, httpx.AsyncClient):
+class AsyncOAuth2Client(_OAuth2Client, httpx2.AsyncClient):
     SESSION_REQUEST_PARAMS = HTTPX_CLIENT_KWARGS
 
     client_auth_class = OAuth2ClientAuth
@@ -81,9 +81,9 @@ class AsyncOAuth2Client(_OAuth2Client, httpx.AsyncClient):
         leeway=60,
         **kwargs,
     ):
-        # extract httpx.Client kwargs
+        # extract httpx2.Client kwargs
         client_kwargs = self._extract_session_request_params(kwargs)
-        httpx.AsyncClient.__init__(self, **client_kwargs)
+        httpx2.AsyncClient.__init__(self, **client_kwargs)
 
         # We use a Lock to synchronize coroutines to prevent
         # multiple concurrent attempts to refresh the same token
@@ -208,7 +208,7 @@ class AsyncOAuth2Client(_OAuth2Client, httpx.AsyncClient):
         )
 
 
-class OAuth2Client(_OAuth2Client, httpx.Client):
+class OAuth2Client(_OAuth2Client, httpx2.Client):
     SESSION_REQUEST_PARAMS = HTTPX_CLIENT_KWARGS
 
     client_auth_class = OAuth2ClientAuth
@@ -228,14 +228,14 @@ class OAuth2Client(_OAuth2Client, httpx.Client):
         update_token=None,
         **kwargs,
     ):
-        # extract httpx.Client kwargs
+        # extract httpx2.Client kwargs
         client_kwargs = self._extract_session_request_params(kwargs)
         # app keyword was dropped!
         app_value = client_kwargs.pop("app", None)
         if app_value is not None:
-            client_kwargs["transport"] = httpx.WSGITransport(app=app_value)
+            client_kwargs["transport"] = httpx2.WSGITransport(app=app_value)
 
-        httpx.Client.__init__(self, **client_kwargs)
+        httpx2.Client.__init__(self, **client_kwargs)
 
         _OAuth2Client.__init__(
             self,

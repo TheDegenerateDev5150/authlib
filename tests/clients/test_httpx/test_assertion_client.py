@@ -1,7 +1,7 @@
 import time
 
 import pytest
-from httpx import WSGITransport
+from httpx2 import WSGITransport
 
 from authlib.integrations.httpx_client import AssertionClient
 

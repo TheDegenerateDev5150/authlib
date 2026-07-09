@@ -1,4 +1,4 @@
-from httpx import Request
+from httpx2 import Request
 
 HTTPX_CLIENT_KWARGS = [
     "headers",

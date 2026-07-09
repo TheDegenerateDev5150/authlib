@@ -4,8 +4,8 @@ from copy import deepcopy
 from unittest import mock
 
 import pytest
-from httpx import ASGITransport
-from httpx import AsyncClient
+from httpx2 import ASGITransport
+from httpx2 import AsyncClient
 
 from authlib.common.security import generate_token
 from authlib.common.urls import url_encode
