@@ -230,11 +230,6 @@ class OAuth2Client(_OAuth2Client, httpx2.Client):
     ):
         # extract httpx2.Client kwargs
         client_kwargs = self._extract_session_request_params(kwargs)
-        # app keyword was dropped!
-        app_value = client_kwargs.pop("app", None)
-        if app_value is not None:
-            client_kwargs["transport"] = httpx2.WSGITransport(app=app_value)
-
         httpx2.Client.__init__(self, **client_kwargs)
 
         _OAuth2Client.__init__(

@@ -91,11 +91,6 @@ class AssertionClient(_AssertionClient, httpx2.Client):
         **kwargs,
     ):
         client_kwargs = extract_client_kwargs(kwargs)
-        # app keyword was dropped!
-        app_value = client_kwargs.pop("app", None)
-        if app_value is not None:
-            client_kwargs["transport"] = httpx2.WSGITransport(app=app_value)
-
         httpx2.Client.__init__(self, **client_kwargs)
 
         _AssertionClient.__init__(
