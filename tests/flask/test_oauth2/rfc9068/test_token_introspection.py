@@ -96,7 +96,7 @@ def create_access_token_claims(client, user):
         "iss": issuer,
         "exp": expires_in,
         "aud": [resource_server],
-        "sub": user.get_user_id(),
+        "sub": str(user.get_user_id()),
         "client_id": client.client_id,
         "iat": now,
         "jti": generate_token(16),
@@ -140,7 +140,7 @@ def test_introspection(test_client, client, user, access_token):
     assert resp["client_id"] == client.client_id
     assert resp["token_type"] == "Bearer"
     assert resp["scope"] == client.scope
-    assert resp["sub"] == user.id
+    assert resp["sub"] == str(user.id)
     assert resp["aud"] == [resource_server]
     assert resp["iss"] == issuer
 
