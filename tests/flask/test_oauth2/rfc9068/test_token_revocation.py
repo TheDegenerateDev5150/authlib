@@ -92,7 +92,7 @@ def create_access_token_claims(client, user):
         "iss": issuer,
         "exp": expires_in,
         "aud": [resource_server],
-        "sub": user.get_user_id(),
+        "sub": str(user.get_user_id()),
         "client_id": client.client_id,
         "iat": now,
         "jti": generate_token(16),
