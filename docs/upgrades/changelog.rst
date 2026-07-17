@@ -24,6 +24,11 @@ Version 1.8.0
   ``joserfc`` 1.7.3 started validating this claim and rejected the previously
   emitted non-string values (e.g. an integer ``get_user_id()``).
   :issue:`910` :pr:`911`
+- Require ``joserfc>=1.6.1`` and ``cryptography>=45.0.1``. The RFC 9068 ``amr``
+  validation uses ``InvalidClaimError``'s ``description`` argument, added in
+  ``joserfc`` 1.6.1.
+- Declare lower bounds for the optional integration dependencies and test them
+  in CI against their minimum versions with uv's ``lowest-direct`` resolution.
 
 Version 1.7.2
 -------------
