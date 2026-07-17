@@ -19,6 +19,11 @@ Version 1.8.0
   client did not configure an algorithm. Override
   ``get_client_algorithm(client)`` if you need the previous behaviour.
   :issue:`806`
+- Cast the ``sub`` claim to a string in the RFC 9068 and RFC 7523
+  ``JWTBearerTokenGenerator``, as required by RFC 7519 Section 4.1.2.
+  ``joserfc`` 1.7.3 started validating this claim and rejected the previously
+  emitted non-string values (e.g. an integer ``get_user_id()``).
+  :issue:`910` :pr:`911`
 
 Version 1.7.2
 -------------
