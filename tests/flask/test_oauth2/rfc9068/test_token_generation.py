@@ -100,7 +100,7 @@ def test_generate_jwt_access_token(test_client, client, user, jwks):
     claims = jwt.decode(access_token, jwks)
 
     assert claims["iss"] == issuer
-    assert claims["sub"] == user.id
+    assert claims["sub"] == str(user.id)
     assert claims["scope"] == client.scope
     assert claims["client_id"] == client.client_id
 

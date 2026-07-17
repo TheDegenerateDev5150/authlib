@@ -161,6 +161,23 @@ def test_jwt_bearer_token_generator(test_client, server):
     assert resp["access_token"].count(".") == 2
 
 
+def test_jwt_bearer_token_generator_casts_sub_to_string(client, user):
+    """The generated JWT ``sub`` must be a string (RFC 7519 Section 4.1.2), even
+    when ``get_user_id()`` returns a non-string such as an integer primary key.
+    ``joserfc`` 1.7.3 rejects non-string ``sub`` claims."""
+    generator = JWTBearerTokenGenerator(
+        read_file_path("jwks_private.json"), issuer="https://provider.test"
+    )
+    token = generator.generate(
+        JWTBearerGrant.GRANT_TYPE, client, user=user, scope="profile"
+    )
+    claims = jwt.decode(
+        token["access_token"], generator.secret_key, algorithms=["RS256"]
+    ).claims
+    assert isinstance(user.get_user_id(), int)
+    assert claims["sub"] == str(user.get_user_id())
+
+
 def test_invalid_payload_assertion(test_client):
     assertion = jws.serialize_compact(
         {"alg": "HS256", "kid": "1"},
