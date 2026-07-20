@@ -1,4 +1,6 @@
-from httpx2 import Request
+from ._compat import httpx2
+
+Request = httpx2.Request
 
 HTTPX_CLIENT_KWARGS = [
     "headers",

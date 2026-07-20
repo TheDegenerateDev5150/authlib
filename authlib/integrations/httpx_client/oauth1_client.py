@@ -1,10 +1,5 @@
 import typing
 
-import httpx2
-from httpx2 import Auth
-from httpx2 import Request
-from httpx2 import Response
-
 from authlib.common.encoding import to_unicode
 from authlib.oauth1 import SIGNATURE_HMAC_SHA1
 from authlib.oauth1 import SIGNATURE_TYPE_HEADER
@@ -12,8 +7,13 @@ from authlib.oauth1 import ClientAuth
 from authlib.oauth1.client import OAuth1Client as _OAuth1Client
 
 from ..base_client import OAuthError
+from ._compat import httpx2
 from .utils import build_request
 from .utils import extract_client_kwargs
+
+Auth = httpx2.Auth
+Request = httpx2.Request
+Response = httpx2.Response
 
 
 class OAuth1Auth(Auth, ClientAuth):

@@ -1,12 +1,11 @@
+# ruff: noqa: I001
+# The import order below is intentional: httpx compatibility must be loaded
+# before anyio so import errors refer to httpx.
 import typing
 from contextlib import asynccontextmanager
 
-import httpx2
-from anyio import Lock  # Import after httpx2 so import errors refer to httpx2
-from httpx2 import USE_CLIENT_DEFAULT
-from httpx2 import Auth
-from httpx2 import Request
-from httpx2 import Response
+from ._compat import httpx2
+from anyio import Lock # Import after httpx so import errors refer to httpx
 
 from authlib.common.urls import url_decode
 from authlib.oauth2.auth import ClientAuth
@@ -19,6 +18,11 @@ from ..base_client import OAuthError
 from ..base_client import UnsupportedTokenTypeError
 from .utils import HTTPX_CLIENT_KWARGS
 from .utils import build_request
+
+USE_CLIENT_DEFAULT = httpx2.USE_CLIENT_DEFAULT
+Auth = httpx2.Auth
+Request = httpx2.Request
+Response = httpx2.Response
 
 __all__ = [
     "OAuth2Auth",
