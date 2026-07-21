@@ -3,7 +3,7 @@ from copy import deepcopy
 from unittest import mock
 
 import pytest
-from httpx import WSGITransport
+from httpx2 import WSGITransport
 
 from authlib.common.security import generate_token
 from authlib.common.urls import url_encode

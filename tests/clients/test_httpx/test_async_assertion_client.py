@@ -1,7 +1,7 @@
 import time
 
 import pytest
-from httpx import ASGITransport
+from httpx2 import ASGITransport
 
 from authlib.integrations.httpx_client import AsyncAssertionClient
 

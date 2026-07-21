@@ -1,5 +1,5 @@
 import pytest
-from httpx import ASGITransport
+from httpx2 import ASGITransport
 
 from authlib.integrations.httpx_client import SIGNATURE_TYPE_BODY
 from authlib.integrations.httpx_client import SIGNATURE_TYPE_QUERY

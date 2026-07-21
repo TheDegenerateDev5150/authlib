@@ -11,6 +11,10 @@ Version 1.8.0
 
 **Unreleased**
 
+- **Breaking change**: ``authlib.integrations.httpx_client`` is now powered by
+  ``httpx2`` instead of ``httpx``. Install ``httpx2`` instead of ``httpx`` to
+  keep using this integration; the public import path and class names are
+  unchanged. :issue:`904`
 - **Breaking change**: the client metadata ``id_token_signed_response_alg``
   now takes precedence over ``get_jwt_config()["alg"]`` when signing OIDC
   ``id_token``, in line with `OpenID Connect Registration 1.0 Section 2

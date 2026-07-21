@@ -44,7 +44,7 @@ Register Remote Apps
         ...
     )
 
-However, unlike Flask/Django, Starlette OAuth registry uses HTTPX
+However, unlike Flask/Django, Starlette OAuth registry uses HTTPX2
 :class:`~authlib.integrations.httpx_client.AsyncOAuth2Client` as the OAuth 2.0
 backend. While Flask and Django are using the Requests version of
 :class:`~authlib.integrations.requests_client.OAuth2Session`.
